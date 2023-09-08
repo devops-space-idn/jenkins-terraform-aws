@@ -4,11 +4,16 @@ resource "aws_key_pair" "belajar_key" {
 }
 
 resource "aws_instance" "belajar_jenkins" {
-  ami             = "ami-0df7a207adb9748c7"
-  instance_type   = "t2.micro"
-  subnet_id       = aws_subnet.belajar_public_1.id
-  key_name        = aws_key_pair.belajar_key.key_name
-  security_groups = [aws_security_group.allow_ssh.id]
+  ami           = "ami-0df7a207adb9748c7"
+  instance_type = "t2.micro"
+  subnet_id     = aws_subnet.belajar_public_1.id
+  key_name      = aws_key_pair.belajar_key.key_name
+  security_groups = [
+    aws_security_group.allow_ssh.id,
+    aws_security_group.jenkins_web.id
+  ]
+  user_data = file("${path.module}/install-jenkins.sh")
+
   tags = {
     Name = "belajar_jenkins"
   }
