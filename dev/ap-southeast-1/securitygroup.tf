@@ -1,7 +1,7 @@
 resource "aws_security_group" "allow_ssh" {
   vpc_id      = aws_vpc.belajar_vpc.id
-  name        = "blj-allow-ssh"
-  description = "security group that allow ssh and all egress traffic"
+  name        = "blj-sg-ssh"
+  description = "Security group that allow ssh and all egress traffic"
   egress {
     from_port   = 0
     to_port     = 0
@@ -17,14 +17,14 @@ resource "aws_security_group" "allow_ssh" {
   }
 
   tags = {
-    Name = "blj-allow-ssh"
+    Name = "blj-sg-ssh"
   }
 }
 
 resource "aws_security_group" "jenkins_web" {
   vpc_id      = aws_vpc.belajar_vpc.id
   name        = "blj-sg-jenkins-web"
-  description = "security group that allow tcp ingress traffic to port 8080"
+  description = "Security group that allow TCP ingress traffic to jenkins web app"
 
   ingress {
     from_port   = 8080
@@ -34,6 +34,6 @@ resource "aws_security_group" "jenkins_web" {
   }
 
   tags = {
-    Name = "blj-allow-tcp-8080"
+    Name = "blj-sg-jenkins-web"
   }
 }
